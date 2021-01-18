@@ -1,6 +1,7 @@
 import discord
 import os
 import re
+import lemminflect
 
 bot = discord.Client()
 
@@ -12,7 +13,9 @@ def should_delete(content):
     for word in re.split(r'\s+', content):
         if word.isdigit():
             continue
-        if word not in WORDS:
+
+        inflections = lemminflect.getLemma(word, upos='NOUN') + lemminflect.getLemma(word, upos='VERB')
+        if not any(inflection in WORDS for inflection in inflections):
             return True
     return False
 
