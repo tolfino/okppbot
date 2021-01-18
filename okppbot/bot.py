@@ -14,7 +14,7 @@ def should_delete(content):
         if word.isdigit():
             continue
 
-        inflections = [v for vs in lemminflect.getAllLemmas(word).values() for v in vs]
+        inflections = (v for vs in lemminflect.getAllLemmas(word).values() for v in vs)
         if not any(inflection in WORDS for inflection in inflections):
             return True
     return False
